@@ -1,54 +1,34 @@
-# React + TypeScript + Vite
+# EchoSphere
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+EchoSphere is a decentralized, peer-to-peer communication platform built using Libp2p. It enables people to connect, communicate, and form local communities without the need for internet access. Whether you're in a disaster zone, a rural village, a school campus, or just looking to meet nearby people, Project Name makes spontaneous, offline networking possible.
 
-Currently, two official plugins are available:
+## 🚀 Key Features:
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- 📶 Internet-Free Communication – Works entirely over local mesh networks (Wi-Fi).
 
-## Expanding the ESLint configuration
+- 🧑‍🤝‍🧑 Local Communities – Create or join local chat groups.
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+- 🆘 Disaster-Ready – Stay connected even during emergencies when internet is down.
 
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
+- 🗣️ Private & Anonymous – Communicate securely without needing a central server or login.
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+- 🧭 Discovery Protocols – Automatically find peers around you using local network discovery.
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+- 🎉 Fun & Social – Break the ice and meet strangers in hotels, campuses, hostels, or anywhere offline.
 
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-})
-```
+- Ⓜ️ Can see the previous chated peers and their messages and all are stored locally not an external server and have strong persistant userid so that peer can remember other users.
+
+## 🚀 Future Deliverables:
+
+- Enable communication made easy in communities
+- A dashboard to show the connection status, internet usage if they enabled!
+- Integerating Bluetooth mesh topology
+- Enabling file and document transfer
+
+## 🏃‍♀️‍➡️ Running the Application:
+
+- Install the packages `npm install` under the project root folder
+- Run `nodemon server.js`
+- Open a new terminal within same project root folder
+- Run `npm run dev`
+- Preview the application at `http://localhost:5173/chat/`
