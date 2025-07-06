@@ -45,13 +45,27 @@ export default function Main() {
 
     const handlePostSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
-        console.log('audiance', audience, message, persistentUserId)
+        console.log('audience', audience, message, persistentUserId)
+
         if (!audience || !message.trim() || !persistentUserId) {
             alert('Please select audience and enter a message.');
             return;
         }
 
         const db = await openDB('p2pchats', 1);
+        const timestamp = Date.now();
+
+        // Create the post object
+        const newPost = {
+            from: persistentUserId,
+            content: message,
+            timestamp: timestamp
+        };
+
+        // Immediately add to local feed
+        if (typeof window !== 'undefined' && (window as any).addPublicPostToFeed) {
+            (window as any).addPublicPostToFeed(newPost);
+        }
 
         // If there are connected peers, send the message to all
         if (onlinePeers && onlinePeers.length > 0) {
@@ -59,10 +73,9 @@ export default function Main() {
             socket?.send(JSON.stringify({
                 type: 'public-post',
                 from: persistentUserId,
-                content: `${message}`,
-                timestamp: Date.now()
+                content: message,
+                timestamp: timestamp
             }));
-
         } else {
             // If no connected peers, save to pendingMessages for all previous known peers
             const prevChat = await db.get('prevChat', persistentUserId);
@@ -74,7 +87,7 @@ export default function Main() {
                 const existing = await db.get('pendingMessages', key);
                 const newMsg = {
                     content: `[Public Post]: ${message}`,
-                    timestamp: Date.now()
+                    timestamp: timestamp
                 };
 
                 if (existing) {
@@ -95,56 +108,57 @@ export default function Main() {
         setPostBox(false);
     };
 
-
     return (
         <main className='mainchatContent'>
             {postBox && (
                 <div className='postbox'>
-                    <h3>Write a Post</h3>
-                    <p>Choose where to post your message.</p>
-                    <form onSubmit={handlePostSubmit}>
-                        <label>
+                    <div>
+                        <h3>Write a Post</h3>
+                        <p>Choose where to post your message.</p>
+                        <form onSubmit={handlePostSubmit}>
+                            <label>
+                                <input
+                                    type="radio"
+                                    name="audience"
+                                    value="public"
+                                    checked={audience === 'public'}
+                                    onChange={() => setAudience('public')}
+                                />
+                                <span>Public</span>
+                            </label>
+                            <label>
+                                <input
+                                    type="radio"
+                                    name="audience"
+                                    value="all"
+                                    checked={audience === 'all'}
+                                    onChange={() => setAudience('all')}
+                                />
+                                <span>All Communities</span>
+                            </label>
+                            <label>
+                                <input
+                                    type="radio"
+                                    name="audience"
+                                    value="specific"
+                                    checked={audience === 'specific'}
+                                    onChange={() => setAudience('specific')}
+                                />
+                                <span>Specific Community</span>
+                            </label>
                             <input
-                                type="radio"
-                                name="audience"
-                                value="public"
-                                checked={audience === 'public'}
-                                onChange={() => setAudience('public')}
+                                type="text"
+                                placeholder="Enter the message"
+                                value={message}
+                                onChange={(e) => setMessage(e.target.value)}
+                                required
                             />
-                            Public
-                        </label>
-                        <label>
-                            <input
-                                type="radio"
-                                name="audience"
-                                value="all"
-                                checked={audience === 'all'}
-                                onChange={() => setAudience('all')}
-                            />
-                            All Communities
-                        </label>
-                        <label>
-                            <input
-                                type="radio"
-                                name="audience"
-                                value="specific"
-                                checked={audience === 'specific'}
-                                onChange={() => setAudience('specific')}
-                            />
-                            Specific Community
-                        </label>
-                        <br />
-                        <input
-                            type="text"
-                            placeholder="Enter the message"
-                            value={message}
-                            onChange={(e) => setMessage(e.target.value)}
-                            required
-                        />
-                        <br />
-                        <button type="submit">Send</button>
-                        <button type="button" onClick={() => setPostBox(false)}>Cancel</button>
-                    </form>
+                            <div className="postbox-buttons">
+                                <button type="submit">Send</button>
+                                <button type="button" onClick={() => setPostBox(false)}>Cancel</button>
+                            </div>
+                        </form>
+                    </div>
                 </div>
             )}
             <section className='leftsidebars'>

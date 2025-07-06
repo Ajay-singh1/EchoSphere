@@ -12,7 +12,7 @@ interface PublicPost {
 
 export default function PeerList() {
     const { peerId, peerCount } = useSelector((state: RootState) => state.Peers)
-    const { socket } = useContext(SocketContext)
+    const { socket, persistentUserId } = useContext(SocketContext)
     const [publicPosts, setPublicPosts] = useState<PublicPost[]>([])
 
     const handleTriggerDiscovery = () => {
@@ -21,11 +21,27 @@ export default function PeerList() {
         }
     }
 
-    // Memoize the message handler to prevent unnecessary re-renders
+    const addPublicPost = useCallback((post: PublicPost) => {
+        setPublicPosts(prev => {
+            // Checking if the post already exists to prevent duplicates
+            const exists = prev.some(existingPost =>
+                existingPost.from === post.from &&
+                existingPost.timestamp === post.timestamp &&
+                existingPost.content === post.content
+            );
+
+            if (exists) {
+                return prev;
+            }
+
+            return [post, ...prev];
+        });
+    }, []);
+
     const handleMessage = useCallback((event: MessageEvent) => {
         try {
             const msg = JSON.parse(event.data);
-            console.log('Received message:', msg); // Debug log
+            console.log('Received message:', msg);
 
             if (msg.type === 'public-post') {
                 const newPost: PublicPost = {
@@ -34,29 +50,14 @@ export default function PeerList() {
                     timestamp: msg.timestamp || Date.now()
                 };
 
-                console.log('Adding public post:', newPost); // Debug log
-
-                setPublicPosts(prev => {
-                    // Check if this post already exists to prevent duplicates
-                    const exists = prev.some(post =>
-                        post.from === newPost.from &&
-                        post.timestamp === newPost.timestamp &&
-                        post.content === newPost.content
-                    );
-
-                    if (exists) {
-                        return prev;
-                    }
-
-                    return [newPost, ...prev]; // latest first
-                });
+                console.log('Adding public post:', newPost);
+                addPublicPost(newPost);
             }
         } catch (error) {
             console.error('Error parsing message:', error);
         }
-    }, []);
+    }, [addPublicPost]);
 
-    // Listen for public-post messages
     useEffect(() => {
         if (!socket) return;
 
@@ -69,6 +70,12 @@ export default function PeerList() {
             socket.removeEventListener('message', handleMessage);
         };
     }, [socket, handleMessage]);
+
+    useEffect(() => {
+        if (typeof window !== 'undefined') {
+            (window as any).addPublicPostToFeed = addPublicPost;
+        }
+    }, [addPublicPost]);
 
     return (
         <div className="network-feed-container">

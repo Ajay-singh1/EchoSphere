@@ -18,12 +18,16 @@ EchoSphere is a decentralized, peer-to-peer communication platform built using L
 
 - Ⓜ️ Can see the previous chated peers and their messages and all are stored locally not an external server and have strong persistant userid so that peer can remember other users.
 
+- 📢 Unpublished messages can be sended once the peer is connected.
+
 ## 🚀 Future Deliverables:
 
 - Enable communication made easy in communities
 - A dashboard to show the connection status, internet usage if they enabled!
 - Integerating Bluetooth mesh topology
 - Enabling file and document transfer
+- Enabling PWA
+- ...and alot more features
 
 ## 🏃‍♀️‍➡️ Running the Application:
 

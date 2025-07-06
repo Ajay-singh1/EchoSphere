@@ -20,11 +20,11 @@ export const PeerSlice = createSlice({
     initialState,
     reducers: {
         setPeerid: (state, action: PayloadAction<string[]>) => {
-  console.log('setPeerid reducer called with payload:', action.payload);
-  state.peerId = action.payload;
-  state.peerCount = action.payload.length;
-  console.log('Updated peerCount:', state.peerCount);
-},
+            console.log('setPeerid reducer called with payload:', action.payload);
+            state.peerId = action.payload;
+            state.peerCount = action.payload.length;
+            console.log('Updated peerCount:', state.peerCount);
+        },
         setUserId: (state, action: PayloadAction<string>) => {
             state.UserId = action.payload
         },
