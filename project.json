@@ -1,0 +1,15 @@
+{
+  "name": "EchoSphere",
+  "private": true,
+  "tagline": "EchoSphere is a decentralized, peer-to-peer communication platform built using Libp2p.",
+  "description": "EchoSphere is a decentralized, peer-to-peer communication platform built using Libp2p. It enables people to connect, communicate, and form local communities without the need for internet access. Whether you're in a disaster zone, a rural village, a school campus, or just looking to meet nearby people",
+  "team": [
+    {
+      "name": "Harsh Dev Pathak",
+      "email": "harshoxfordgkp@gmail.com"
+    }
+  ],
+  "demo_url": "",
+  "video_url": "https://youtu.be/YRswirojHrQ",
+  "technologies": ["React", "libp2p"]
+}

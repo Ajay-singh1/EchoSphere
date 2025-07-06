@@ -1,17 +1,6 @@
 {
-  "name": "EchoSphere",
+  "name": "echosphere",
   "private": true,
-  "tagline": "One-liner summary of your project",
-  "description": "What it does, how it works, and the tech used.",
-  "team": [
-    {
-      "name": "Harsh Dev Pathak",
-      "email": "harshoxfordgkp@gmail.com"
-    }
-  ],
-  "demo_url": "",
-  "video_url": "https://youtu.be/YRswirojHrQ",
-  "technologies": ["React", "libp2p"],
   "version": "0.0.0",
   "type": "module",
   "scripts": {
