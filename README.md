@@ -1,6 +1,6 @@
 # EchoSphere
 
-EchoSphere is a decentralized, peer-to-peer communication platform built using Libp2p. It enables people to connect, communicate, and form local communities without the need for internet access. Whether you're in a disaster zone, a rural village, a school campus, or just looking to meet nearby people, Project Name makes spontaneous, offline networking possible.
+EchoSphere is a decentralized, peer-to-peer communication platform built using Libp2p. It enables people to connect, communicate, and form local communities without the need for internet access. Whether you're in a disaster zone, a rural village, a school campus, or just looking to meet nearby people, EchoSphere makes spontaneous, offline networking possible.
 
 ## 🚀 Key Features:
 
