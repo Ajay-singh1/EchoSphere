@@ -32,6 +32,7 @@ EchoSphere is a decentralized, peer-to-peer communication platform built using L
 ## 🏃‍♀️‍➡️ Running the Application:
 
 - Install the packages `npm install` under the project root folder
+- Change the directory `cd node`
 - Run `nodemon server.js`
 - Open a new terminal within same project root folder
 - Run `npm run dev`
